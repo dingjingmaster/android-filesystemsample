@@ -54,6 +54,7 @@ public class AccesoFicherosActivity extends Activity {
     	// Tenemos permiso para todo
     	if (Environment.MEDIA_MOUNTED.equals(estadoAlmacenamiento)) {
     		Log.d("DEBUG","Puedo leer y escribir");
+			showAvailableDirs();
     		return true;
     		// o quizá tenemos permiso de solo lectura?
     	}else if (Environment.MEDIA_MOUNTED_READ_ONLY.equals(estadoAlmacenamiento)) {
@@ -66,15 +67,29 @@ public class AccesoFicherosActivity extends Activity {
     	}
 
     }
-    
-    
-    /**
+
+	/**
+	 * Shows available dirs, for information purposes
+	 */
+	private void showAvailableDirs() {
+		//  This uses a private dir for this app, will be deleted on app uninstall
+		// Android will delete if needed
+		Log.d("PELLODEBUG","Cache Dir: " + this.getCacheDir());
+		// If we need a lot of space and we don't want to be deleted
+		// by the system
+		Log.d("PELLODEBUG","External Storage Dir: " + Environment.getExternalStorageDirectory());
+
+	}
+
+
+	/**
      * guardarAlgo
      * Guardamos un fichero de texto en el almacenamiento
      */
     private void guardarAlgo () {
     	try{
-    		
+
+
     		File ruta_sd = Environment.getExternalStorageDirectory();
     		File f = new File(ruta_sd.getAbsolutePath(), this.miFichero);
     		OutputStreamWriter fout = new OutputStreamWriter(new FileOutputStream(f));
